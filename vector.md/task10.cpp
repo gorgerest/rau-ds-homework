@@ -3,14 +3,17 @@
 
 
 template <typename T>
-std::vector<T>filterVector (std::vector<T> vec, bool (*filter)(T smth)) {
-    for (int i = 0; i < vec.size(); ++i) {
-        vec.erase (vec.begin()+i);
+std::vector<T> filterVector (const std::vector<T>& vec, bool (*filter)(T smth)) {
+    std::vector ret = vec;
+    for (int i = 0; i < ret.size(); ++i) {
+        if (filter(ret[i])) {
+            ret.erase(ret.begin() + i);
+        }
     }
-    return vec;
+    return ret;
 }
 
-bool isEven(int x) { return x % 2 == 0; }
+bool isEven(int x) { return x % 2 != 0; }
 
 int main() {
 

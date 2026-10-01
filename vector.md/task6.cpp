@@ -1,7 +1,8 @@
 #include <iostream>
 #include <vector>
 
-void resizeVector(std::vector<int> &vec, int newSize, int def) {
+template <typename T>
+void resizeVector(std::vector<T> &vec, int newSize, T def = T()) {
     std::cout << "Size: " << vec.size() << '\n';
     std::cout << "Capacity: " << vec.capacity() << '\n';
 
@@ -13,13 +14,13 @@ void resizeVector(std::vector<int> &vec, int newSize, int def) {
 
 int main() {
     std::vector<int> vec = {1, 2, 3};
-    for (int &x : vec) {
+    for (auto &x : vec) {
         std::cout << x << ' ';
     }
     std::cout << '\n';
 
     resizeVector(vec, 5, 42);
-    for (int &x : vec) {
+    for (auto &x : vec) {
         std::cout << x << ' ';
     }
     std::cout << '\n';
