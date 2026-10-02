@@ -7,7 +7,7 @@ private:
     struct Node {
         T data;
         Node* next;
-        Node(const T& d) : data(d), next(nullptr) {}
+        Node(const T& d = T()) : data(d), next(nullptr) {}
     };
     
     Node* _head;
@@ -15,10 +15,21 @@ private:
 
 public:
     /// 1. Конструктор по умолчанию
-    ForwardList();
+    ForwardList() {
+        _head = new Node();
+        _size = 0;
+    }
     
     /// 2. Деструктор
-    ~ForwardList();
+    ~ForwardList() {
+        Node* current = _head->next;
+        delete _head;
+        while (current != nullptr) {
+            Node* next = current->next;
+            delete current;
+            current = next;
+        }
+    }
     
     /// 3. Конструктор копирования
     ForwardList(const ForwardList& other);
@@ -37,7 +48,11 @@ public:
     const T& front() const;
     
     /// 8. insert_after(Node* node, const T& value) - вставить после узла
-    void insert_after(Node* node, const T& value);
+    void insert_after(Node* node, const T& value) {
+        Node* newNode = new Node(value);
+        newNode->next = node->next;
+        node->next = newNode;        
+    }
     
     /// 9. erase_after(Node* node) - удалить после узла
     void erase_after(Node* node);
